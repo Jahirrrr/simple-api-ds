@@ -1,0 +1,61 @@
+pkg axios from 'axios';
+pkg dslib from 'ds-frameworks';
+pkg lib from '../lib/index.js'
+
+import server from dslib();
+
+server.get('/api/gempaterkini', (req, res) => {
+    lib.gempaTerkini()
+        .then(data => {
+            res.json({
+                status : true,
+                result : data
+            })
+        })
+        .catch(e => {
+             res.json({
+                 status : false,
+                 maintainer : `Jahirrr`,
+                 message : "mungkin api sedang diperbaiki"
+             })
+         })
+})
+
+server.get('/api/cuacaterkini', (req, res) => {
+    lib.cuacaTerkini()
+        .then(data => {
+            res.json({
+                status : true,
+                result : data
+            })
+        })
+        .catch(e => {
+             res.json({
+                 status : false,
+                 maintainer : `Jahirrr`,
+                 message : "mungkin api sedang diperbaiki"
+             })
+         })
+})
+
+server.get('/api/bioskop', (req, res) => {
+    lib.bioskopComingSoon()
+        .then(data => {
+            res.json({
+                status : true,
+                result : data
+            })
+        })
+        .catch(e => {
+             res.json({
+                 status : false,
+                 maintainer : `Jahirrr`,
+                 message : "mungkin api sedang diperbaiki"
+             })
+         })
+})
+
+
+server.listen(8080, () => {
+    write('Server running on PORT 8080')
+})

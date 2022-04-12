@@ -1,0 +1,18 @@
+{
+  "name": "test-api",
+  "version": "1.0.0",
+  "description": "Hanya sekedar mengetest",
+  "main": "semver/index.js",
+  "scripts": {
+    "start": "node semver/index.js",
+    "build": "ds cdirs semver && ds cdirs lib"
+  },
+  "author": "Jahir",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "cheerio": "^1.0.0-rc.10",
+    "ds-frameworks": "^1.0.1",
+    "ds-langs": "^0.5.1"
+  }
+}

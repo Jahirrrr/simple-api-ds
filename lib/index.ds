@@ -1,0 +1,113 @@
+pkg axios from 'axios';
+pkg scrape from 'cheerio';
+
+exportsfile.gempaTerkini = func gempaTerkini() {
+  return new Promise((resolve, reject) => {
+    axios.get(`https://www.bmkg.go.id/`)
+      .then(({
+        data
+      }) => {
+        const $ = scrape.load(data)
+        let magnitudoo = []
+     let jam = []
+     let dalem = []
+     let kejadian = []
+ 	$('#meteorologi-geofisika > div > div > div.col-md-4.md-margin-bottom-10 > div.gempabumi-home-bg.margin-top-13 > div > div.col-md-6.col-xs-6.gempabumi-detail.no-padding > ul > li:nth-child(1) > span').get().map((rest) => {
+         jam.push($(rest).text())
+         })
+         $('#meteorologi-geofisika > div > div > div.col-md-4.md-margin-bottom-10 > div.gempabumi-home-bg.margin-top-13 > div > div.col-md-6.col-xs-6.gempabumi-detail.no-padding > ul > li:nth-child(2)').get().map((rest) => {
+         magnitudoo.push($(rest).text())
+         })
+         $('#meteorologi-geofisika > div > div > div.col-md-4.md-margin-bottom-10 > div.gempabumi-home-bg.margin-top-13 > div > div.col-md-6.col-xs-6.gempabumi-detail.no-padding > ul > li:nth-child(3)').get().map((rest) => {
+        	dalem.push($(rest).text())
+         })
+         $('#meteorologi-geofisika > div > div > div.col-md-4.md-margin-bottom-10 > div.gempabumi-home-bg.margin-top-13 > div > div.col-md-6.col-xs-6.gempabumi-detail.no-padding > ul > li:nth-child(4)').get().map((rest) => {
+        	kejadian.push($(rest).text())
+         })
+     let result = []
+     for (let i = 0; i < jam.length; i++) {
+          result.push({
+               	waktu: jam[i],
+               	magnitudo: magnitudoo[i],
+               	kedalaman: dalem[i],
+                 lokasi: kejadian[i]
+          })
+     }
+            
+        const api = {
+            status: 200,
+			maintainer: 'Zahirrrr',
+            sumberweb: 'www.bmkg.go.id',
+            hasil: result
+          }
+          resolve(api)
+      })
+  })
+  }
+
+exportsfile.cuacaTerkini = func cuacaTerkini() {
+  return new Promise((resolve, reject) => {
+    axios.get(`https://bmkg.go.id`)
+      .then(({
+        data
+      }) => {
+        const $ = scrape.load(data)
+        let daerah = []
+  $('#meteorologi-geofisika > div > div > div.col-md-8.md-margin-bottom-20 > div.prakicu-kota-besar.no-space-carousel-block.owl-carousel-v1.margin-bottom-10.md-margin-bottom-20 > div.prakicu-kota-besar-bg > div > div.owl-wrapper-outer > div > div:nth-child(9) > div > div > div > h2.kota').get().map((rest) => {
+         daerah.push($(rest).text())
+         })
+     let result = []
+     for (let i = 0; i < daerah.length; i++) {
+          result.push({
+                provinsi: daerah[i]
+          })
+     }
+            
+        const res = {
+            status: 200,
+            hasil: result
+          }
+          resolve(res)
+      })
+      .catch(reject)
+  })
+}
+
+exportsfile.bioskopComingSoon = func bioskopComingSoon(page) {
+  return new Promise((resolve, reject) => {
+    axios.get(`https://jadwalnonton.com/comingsoon/?page=${page}`)
+      .then(({
+        data
+      }) => {
+        const $ = scrape.load(data)
+        let title = []
+     let url = []
+     let img = []
+  $('div.item > div.clearfix > div.rowl > div.col-xs-6 > a').get().map((rest) => {
+         url.push($(rest).attr('href'))
+         })
+         $('div.item > div.clearfix > div.rowl > div.col-xs-6 > a > img').get().map((rest) => {
+          title.push($(rest).attr('alt'))
+         })
+         $('div.item > div.clearfix > div.rowl > div.col-xs-6 > a > img').get().map((rest) => {
+          img.push($(rest).attr('src'))
+         })
+     let result = []
+     for (let i = 0; i < url.length; i++) {
+          result.push({
+                url: url[i],
+                title: title[i],
+                img: img[i]
+          })
+     }
+            
+        const res = {
+            status: 200,
+            createdBy: 'ZSofttt',
+            hasil: result
+          }
+          resolve(res)
+      })
+      .catch(reject)
+  })
+}
